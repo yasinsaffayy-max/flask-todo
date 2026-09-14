@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>لیست کارها</title>
+    <style>
+        body { font-family: Tahoma; max-width: 500px; margin: 40px auto; padding: 20px; background: #f5f5f5; }
+        h1 { color: #333; }
+        form { display: flex; gap: 8px; margin-bottom: 20px; }
+        input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        ul { list-style: none; padding: 0; }
+        li { background: white; padding: 12px; margin-bottom: 8px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; }
+        .done { text-decoration: line-through; color: #999; }
+        a { text-decoration: none; color: #e74c3c; margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <h1>📝 لیست کارها</h1>
+    <form action="/add" method="post">
+        <input type="text" name="task" placeholder="کار جدید..." required>
+        <button type="submit">افزودن</button>
+    </form>
+    <ul>
+        {% for task in tasks %}
+        <li>
+            <span class="{% if task.done %}done{% endif %}">{{ task.title }}</span>
+            <div>
+                <a href="/done/{{ task.id }}">{% if task.done %}↩️{% else %}✅{% endif %}</a>
+                <a href="/delete/{{ task.id }}">🗑️</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
